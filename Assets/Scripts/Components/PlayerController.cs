@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController current;
+    public int playerIndex;
     public IDamageBehaviour damageBehaviour;
 
     [HideInInspector] public Vector3 velocity;
@@ -14,7 +15,17 @@ public class PlayerController : MonoBehaviour
 
     Move currentMove;
 
-    public bool IsReady { get { return currentMove != null; } }
+    public bool IsReady 
+    { 
+        get
+        {
+            if (currentMove == null)
+                return false;
+            if (currentMove.moveBehaviour == null)
+                return false;
+            return currentMove.moveBehaviour.state != MoveState.NULL; 
+        } 
+    }
 
     private void Start()
     {
@@ -26,12 +37,10 @@ public class PlayerController : MonoBehaviour
         PlayerEventBus<MoveConfirmedEvent>.OnEvent -= OnMoveConfirmed;
     }
 
-    private void FixedUpdate()
+    public void PlayerUpdate()
     {
-        if (TimeManager.isPaused)
-            return;
-
-        HandleAttack();
+        current = this;
+        HandleMove();
         HandlePhysics();
     }
 
@@ -44,21 +53,24 @@ public class PlayerController : MonoBehaviour
         transform.position += velocity * Time.fixedDeltaTime;
     }
 
-    private void HandleAttack()
+    private void HandleMove()
     {
-        if (currentMove == null)
-        current = this;
+        if (!IsReady)
+            return;
         currentMove.Update();
     }
 
     public void Damage(PlayerController other, float damage)
     {
-        currentMove?.moveBehaviour.OnDamaged(other, damage);
+        currentMove.moveBehaviour.OnDamaged(other, damage);
     }
 
     private void OnMoveConfirmed(MoveConfirmedEvent data)
     {
+        if (data.player != playerIndex)
+            return;
         currentMove = data.move;
+        currentMove.moveBehaviour.Initialize();
         if (PlayerManager.IsEveryoneReady())
             PlayerEventBus<StartActionEvent>.Publish(new StartActionEvent());
     }

@@ -13,6 +13,18 @@ public class Move
 
     public MoveBehaviour moveBehaviour;
 
+    public Move GetClone()
+    {
+        return new Move()
+        {
+            preperationTimeSeconds = preperationTimeSeconds,
+            executionTimeSeconds = executionTimeSeconds,
+            recoveryTimeSeconds = recoveryTimeSeconds,
+            time = 0,
+            moveBehaviour = moveBehaviour.GetClone()
+        };
+    }
+
     public void Update()
     {
         time += Time.fixedDeltaTime;
@@ -21,6 +33,7 @@ public class Move
         {
             moveBehaviour.state = MoveState.PREPERATION;
             moveBehaviour.OnPreperationStart();
+            moveBehaviour.OnExecutionStart();
         }
         else if (state == MoveState.PREPERATION)
         {
@@ -29,6 +42,7 @@ public class Move
                 moveBehaviour.state = MoveState.EXECUTION;
                 moveBehaviour.OnPreperationEnd();
                 moveBehaviour.OnExecutionStart();
+                moveBehaviour.OnExecution();
             }
             else
                 moveBehaviour.OnPreperation();
@@ -40,6 +54,7 @@ public class Move
                 moveBehaviour.state = MoveState.RECOVERY;
                 moveBehaviour.OnExecutionEnd();
                 moveBehaviour.OnRecoveryStart();
+                moveBehaviour.OnRecovery();
             }
             else
                 moveBehaviour.OnExecution();
@@ -47,7 +62,11 @@ public class Move
         else if (state == MoveState.RECOVERY)
         {
             if (time > recoveryTimeSeconds + executionTimeSeconds + preperationTimeSeconds)
+            {
                 moveBehaviour.OnRecoveryEnd();
+                moveBehaviour.state = MoveState.NULL;
+                PlayerEventBus<StopActionEvent>.Publish(new StopActionEvent());
+            }
             else
                 moveBehaviour.OnRecovery();
         }

@@ -8,6 +8,24 @@ public class TemplateMoveBehaviour : MoveBehaviour
     public MoveAction PreperationAction;
     public MoveAction ExecutionAction;
     public MoveAction RecoveryAction;
+
+    public override void Initialize()
+    {
+        PreperationAction.Initialize();
+        ExecutionAction.Initialize();
+        RecoveryAction.Initialize();
+    }
+
+    public override MoveBehaviour GetClone()
+    {
+        TemplateMoveBehaviour tmp = Instantiate(this);
+        tmp.PreperationAction = PreperationAction.GetClone();
+        tmp.ExecutionAction = ExecutionAction.GetClone();
+        tmp.RecoveryAction = RecoveryAction.GetClone();
+
+        return tmp;
+    }
+
     public override void OnPreperationStart() { PreperationAction.Start(); }
     public override void OnPreperation() { PreperationAction.Update(); }
     public override void OnPreperationEnd() { PreperationAction.End(); }

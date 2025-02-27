@@ -17,10 +17,7 @@ public abstract class PlayerEvent { }
 public class MoveConfirmedEvent : PlayerEvent
 {
     public Move move;
-    public MoveConfirmedEvent(Move confirmedMove)
-    {
-        move = confirmedMove;
-    }
+    public int player;
 }
 public class StartActionEvent : PlayerEvent { public Move move; }
 public class StopActionEvent : PlayerEvent { public Move move; }

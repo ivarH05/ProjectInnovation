@@ -13,6 +13,21 @@ public class PlayerManager : MonoBehaviour
     {
         _singleton = this;
         players = playerCharacters;
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].playerIndex = i;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (TimeManager.isPaused)
+            return;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].PlayerUpdate();
+        }
     }
     public static int PlayerCount { get { return players.Length; } }
 

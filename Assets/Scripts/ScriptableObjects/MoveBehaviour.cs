@@ -7,7 +7,9 @@ public abstract class MoveBehaviour : ScriptableObject
     [HideInInspector] public PlayerController player;
     [HideInInspector] public MoveState state = MoveState.UNINITIALIZED;
 
+    public virtual void Initialize() { }
     public virtual void Update() { }
+    public virtual MoveBehaviour GetClone() { return Instantiate(this); }
 
     public virtual void OnPreperationStart() { }
     public virtual void OnPreperation() { }

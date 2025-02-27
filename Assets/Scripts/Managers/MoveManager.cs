@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class MoveManager : MonoBehaviour
 
     public static Move GetMove(int index)
     {
-        return _singleton.moves[index];
+        Move m = _singleton.moves[index].GetClone();
+        m.moveBehaviour.state = MoveState.UNINITIALIZED;
+        return m;
     }
 }

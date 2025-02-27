@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public static bool isPaused = true;
+    public static bool isPaused { get; private set; } = true;
 
     private bool PauseNextFrame = true;
 
