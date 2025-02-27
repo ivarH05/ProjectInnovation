@@ -11,8 +11,8 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if(TimeManager.isPaused) 
-            return;
+        /*if(TimeManager.isPaused) 
+            return;*/
 
         Vector3 min = Vector3.positiveInfinity;
         Vector3 max = Vector3.negativeInfinity;
