@@ -15,7 +15,9 @@ public class MoveManager : MonoBehaviour
 
     public static Move GetMove(int index)
     {
-        Move m = _singleton.moves[index].GetClone();
+        Character character = CharacterManager.Current;
+        Move original = character.moves[index];
+        Move m = original.GetClone();
         m.moveBehaviour.state = MoveState.UNINITIALIZED;
         return m;
     }

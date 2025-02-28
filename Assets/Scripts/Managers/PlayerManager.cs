@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private PlayerController[] playerCharacters;
     private static PlayerController[] players;
+    private static List<int> characterIndexes = new List<int>();
     private static PlayerManager _singleton;
 
 
@@ -16,6 +17,7 @@ public class PlayerManager : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i].playerIndex = i;
+            characterIndexes.Add(i);
         }
     }
 
@@ -43,5 +45,10 @@ public class PlayerManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public static void SetActiveCharacter(int index)
+    {
+        CharacterManager.currentIndex = characterIndexes[index];
     }
 }
