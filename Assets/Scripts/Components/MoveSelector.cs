@@ -6,8 +6,8 @@ public class MoveSelector : MonoBehaviour
 {
     private static MoveSelector _singleton;
 
-    private Move move;
     private Vector2 direction;
+    private int move;
 
     private int player = 0;
 
@@ -23,9 +23,11 @@ public class MoveSelector : MonoBehaviour
 
     public void LockInSelection()
     {
-        move = MoveManager.GetMove(0); // change later
+        PlayerManager.SetActiveCharacter(player);
+        Move selectedMove = MoveManager.GetMove(move);
 
-        PlayerEventBus<MoveConfirmedEvent>.Publish(new MoveConfirmedEvent { move = move, player = player });
+        PlayerEventBus<MoveConfirmedEvent>.Publish(new MoveConfirmedEvent { move = selectedMove, player = player });
+        move = 0;
 
         // remove later
         player++;

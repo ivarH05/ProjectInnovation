@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TemplateMoveBehaviour", menuName = "MoveBehaviour/Template")]
+[CreateAssetMenu(fileName = "TemplateMoveBehaviour", menuName = "Move")]
 public class TemplateMoveBehaviour : MoveBehaviour
 {
     public MoveAction PreperationAction;
@@ -26,13 +26,13 @@ public class TemplateMoveBehaviour : MoveBehaviour
         return tmp;
     }
 
-    public override void OnPreperationStart() { PreperationAction.Start(); }
-    public override void OnPreperation() { PreperationAction.Update(); }
-    public override void OnPreperationEnd() { PreperationAction.End(); }
-    public override void OnExecutionStart() { ExecutionAction.Start(); }
-    public override void OnExecution() { ExecutionAction.Update(); }
-    public override void OnExecutionEnd() { ExecutionAction.End(); }
-    public override void OnRecoveryStart() { RecoveryAction.Start(); }
-    public override void OnRecovery() { RecoveryAction.Update(); }
-    public override void OnRecoveryEnd() { RecoveryAction.End(); }
+    public override void OnPreperationStart() { Debug.Log("prepare"); PreperationAction.Start(); }
+    public override void OnPreperation() { Debug.Log("preparing"); PreperationAction.Update(); }
+    public override void OnPreperationEnd() { Debug.Log("prepared"); PreperationAction.End(); }
+    public override void OnExecutionStart() { Debug.Log("execute"); ExecutionAction.Start(); }
+    public override void OnExecution() { Debug.Log("executing"); ExecutionAction.Update(); }
+    public override void OnExecutionEnd() { Debug.Log("executing"); ExecutionAction.End(); }
+    public override void OnRecoveryStart() { Debug.Log("recover"); RecoveryAction.Start(); }
+    public override void OnRecovery() { Debug.Log("recovering"); RecoveryAction.Update(); }
+    public override void OnRecoveryEnd() { Debug.Log("recovered"); RecoveryAction.End(); }
 }
