@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController current;
     public int playerIndex;
     public IDamageBehaviour damageBehaviour;
 
-    [HideInInspector] public Vector3 velocity;
     [HideInInspector] public bool isKinematic = false;
     [HideInInspector] public bool useGravity = true;
+    public Vector3 Velocity { get { return rb.velocity; } set { rb.velocity = value; } }
+
+    private Rigidbody rb;
 
     Move currentMove;
 
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         PlayerEventBus<MoveConfirmedEvent>.OnEvent += OnMoveConfirmed;
     }
 
@@ -44,13 +48,41 @@ public class PlayerController : MonoBehaviour
         HandlePhysics();
     }
 
+    private Vector3 storedVelocity;
+    public void SetPauseState(bool state)
+    {
+        if (state)
+            storedVelocity = rb.velocity;
+
+        rb.isKinematic = state;
+
+        if(!state)
+            rb.velocity = storedVelocity;
+    }
+
+    public void SetMomentum(Vector3 momentum)
+    {
+        rb.velocity = momentum / rb.mass;
+    }
+
+    public void AddMomentum(Vector3 momentum)
+    {
+        rb.velocity += momentum / rb.mass;
+    }
+
+    public void AddForce(Vector3 force)
+    {
+        rb.AddForce(force);
+    }
+
     private void HandlePhysics()
     {
+        rb.isKinematic = isKinematic;
+        rb.useGravity = useGravity;
+
+        transform.rotation = Quaternion.LookRotation(Vector3.back, -Physics.gravity);
         if (isKinematic)
             return;
-        if(useGravity)
-            velocity += Physics.gravity * Time.fixedDeltaTime;
-        transform.position += velocity * Time.fixedDeltaTime;
     }
 
     private void HandleMove()

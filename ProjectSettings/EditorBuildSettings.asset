@@ -4,9 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Code_Ivar_Controlls.unity
+    guid: 8b88039e3b16f8e468b5b2d4b9aebcd3
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 3cbcea327b84ffa47909db122c1658d4,
       type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: fc9d5d512b3b7dc488a3222569690fc2, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: d0aca2fdeaf017a46bf10059f3d1fcac, type: 2}

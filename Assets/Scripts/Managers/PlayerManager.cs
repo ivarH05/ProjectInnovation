@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     private static PlayerController[] players;
     private static List<int> characterIndexes = new List<int>();
     private static PlayerManager _singleton;
+    bool pausedLastFrame = false;
 
 
     private void Start()
@@ -23,7 +24,17 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TimeManager.isPaused)
+        bool isPaused = TimeManager.isPaused;
+        if(isPaused !=  pausedLastFrame )
+        {
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].SetPauseState(isPaused);
+            }
+            pausedLastFrame = isPaused;
+        }
+
+        if (isPaused)
             return;
 
         for (int i = 0; i < players.Length; i++)
@@ -34,7 +45,7 @@ public class PlayerManager : MonoBehaviour
     public static int PlayerCount { get { return players.Length; } }
 
     public static Vector3 GetPosition(int playerIndex) { return players[playerIndex].transform.position; }
-    public static Vector3 GetVelocity(int playerIndex) { return players[playerIndex].velocity; }
+    public static Vector3 GetVelocity(int playerIndex) { return players[playerIndex].Velocity; }
 
     public static bool IsEveryoneReady()
     {

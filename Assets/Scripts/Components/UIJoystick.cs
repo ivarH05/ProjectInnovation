@@ -11,13 +11,22 @@ public class UIJoystick : MonoBehaviour
     public UIJoystick_Stick stick;
     public float size = 100;
 
+    public bool clampX;
+    public bool clampY;
+
     public void Change()
     {
         Vector3 pos = stick.transform.localPosition;
+        Vector3 newPos = pos;
         if (pos.magnitude > size)
-        {
-            stick.transform.localPosition = pos.normalized * size;
-        }
-        OnDropdownValueChanged?.Invoke(pos / size);
+            newPos = newPos.normalized * size;
+
+        if(clampX)
+            newPos.x = 0;
+        if(clampY)
+            newPos.y = 0;
+
+        stick.transform.localPosition = newPos;
+        OnDropdownValueChanged?.Invoke(newPos / size);
     }
 }

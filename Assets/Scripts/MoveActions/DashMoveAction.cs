@@ -6,7 +6,7 @@ using UnityEngine;
 public class DashMoveAction : MoveAction
 {
     Vector2 direction = Vector2.zero;
-    public float strength = 25;
+    public float strength = 800;
     public override void Initialize()
     {
         direction = MoveSelector.GetDirection();
@@ -17,7 +17,7 @@ public class DashMoveAction : MoveAction
     }
     public override void Update()
     {
-        PlayerController.current.velocity = direction * strength;
+        PlayerController.current.SetMomentum(direction * strength);
     }
     public override void End()
     {
