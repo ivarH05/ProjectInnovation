@@ -19,5 +19,10 @@ public class MoveConfirmedEvent : PlayerEvent
     public Move move;
     public int player;
 }
+public class MoveSelectionEvent : PlayerEvent
+{
+    public Move move;
+    public int player;
+}
 public class StartActionEvent : PlayerEvent { public Move move; }
 public class StopActionEvent : PlayerEvent { public Move move; }

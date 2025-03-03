@@ -26,7 +26,7 @@ MonoBehaviour:
     moveHeight: 1
     preperationFrames: 10
     executionFrames: 5
-    recoveryFrames: 5
+    recoveryFrames: 10
     onGetBlockedModifier: 50
     onDealDamageStun: 5
     moveBehaviour: {fileID: 11400000, guid: 4702d60ce0485b349925441fc754c1ff, type: 2}
@@ -57,6 +57,36 @@ MonoBehaviour:
     preperationFrames: 5
     executionFrames: 10
     recoveryFrames: 5
+    onGetBlockedModifier: 50
+    onDealDamageStun: 5
+    moveBehaviour: {fileID: 11400000, guid: b713214806c2b2246af725622292e0c5, type: 2}
+  - name: DoNothing
+    sprite: {fileID: 0}
+    baseDamage: 0
+    aerial: 1
+    ground: 1
+    knockedMove: 1
+    controlType: 1
+    moveType: 0
+    moveHeight: 1
+    preperationFrames: 5
+    executionFrames: 500000
+    recoveryFrames: 5
+    onGetBlockedModifier: 50
+    onDealDamageStun: 5
+    moveBehaviour: {fileID: 11400000, guid: 00d05009d39b0ae46bcb3e7732bade0d, type: 2}
+  - name: DirectionalDash
+    sprite: {fileID: 0}
+    baseDamage: 0
+    aerial: 1
+    ground: 1
+    knockedMove: 0
+    controlType: 2
+    moveType: 0
+    moveHeight: 1
+    preperationFrames: 10
+    executionFrames: 5
+    recoveryFrames: 10
     onGetBlockedModifier: 50
     onDealDamageStun: 5
     moveBehaviour: {fileID: 11400000, guid: b713214806c2b2246af725622292e0c5, type: 2}

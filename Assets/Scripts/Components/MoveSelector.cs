@@ -6,6 +6,8 @@ public class MoveSelector : MonoBehaviour
 {
     private static MoveSelector _singleton;
 
+    public Move Debug_Move;
+
     private Vector2 direction;
     private int move;
 
@@ -38,5 +40,15 @@ public class MoveSelector : MonoBehaviour
     public static Vector3 GetDirection()
     {
         return new Vector3(-_singleton.direction.x, _singleton.direction.y, 0);
+    }
+
+    public void SelectMove(int index)
+    {
+        PlayerManager.SetActiveCharacter(player);
+        Move selectedMove = MoveManager.GetMove(index);
+        Debug_Move = selectedMove;
+
+        PlayerEventBus<MoveSelectionEvent>.Publish(new MoveSelectionEvent { move = selectedMove, player = player });
+        move = index;
     }
 }
