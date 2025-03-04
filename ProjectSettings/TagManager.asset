@@ -13,9 +13,9 @@ TagManager:
   - UI
   - PlayerPhysics
   - Outline
-  - 
-  - 
-  - 
+  - PlayerHitbox
+  - PlayerHurtbox
+  - PlayerGrabbox
   - 
   - 
   - 

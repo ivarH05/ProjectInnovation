@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GravityController : MonoBehaviour
 {
-
-    public Move move;
     // Start is called before the first frame update
     void Start()
     {

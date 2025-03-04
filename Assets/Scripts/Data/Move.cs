@@ -29,7 +29,7 @@ public class Move
     [Tooltip("The damage of the attack under normal circumstances")] public int baseDamage;
     [Tooltip("The amount of additional frames on top of recovery frames, after getting blocked")] public int onGetBlockedModifier = 5;
     [Tooltip("The amount of additional frames on top of recovery frames, after performing an attack")] public int onDealDamageStun = 5;
-    [Tooltip("The hitbox of the attack, this distance will call the collision methods")] public Hitbox hitbox;
+    [Tooltip("The hitbox of the attack, this distance will call the collision methods")] public HitboxSet hitboxes;
 
     //block options
     [Tooltip("True if this move ignores the MoveHeight and also blocks from behind")] public bool fullBody;
@@ -51,14 +51,6 @@ public class Move
         result.moveBehaviour = moveBehaviour.GetClone();
         frameCount = 0;
         return result;
-        /*new Move()
-        {
-            preperationFrames = preperationFrames,
-            executionFrames = executionFrames,
-            recoveryFrames = recoveryFrames,
-            frameCount = 0,
-            moveBehaviour = moveBehaviour.GetClone()
-        };*/
     }
 
     public void Update()

@@ -17,76 +17,107 @@ MonoBehaviour:
   moves:
   - name: Dash
     sprite: {fileID: 0}
-    baseDamage: 0
+    moveType: 0
+    controlType: 0
     aerial: 0
     ground: 1
     knockedMove: 0
-    controlType: 0
-    moveType: 0
-    moveHeight: 1
     preperationFrames: 5
     executionFrames: 10
     recoveryFrames: 5
+    baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
+    fullBody: 0
+    moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: b713214806c2b2246af725622292e0c5, type: 2}
   - name: DoubleDash
     sprite: {fileID: 0}
-    baseDamage: 0
+    moveType: 0
+    controlType: 1
     aerial: 1
     ground: 1
     knockedMove: 0
-    controlType: 1
-    moveType: 0
-    moveHeight: 1
     preperationFrames: 5
     executionFrames: 5
     recoveryFrames: 5
+    baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
+    fullBody: 0
+    moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: 4702d60ce0485b349925441fc754c1ff, type: 2}
   - name: AirDash
     sprite: {fileID: 0}
-    baseDamage: 0
+    moveType: 0
+    controlType: 2
     aerial: 1
     ground: 0
     knockedMove: 0
-    controlType: 2
-    moveType: 0
-    moveHeight: 1
     preperationFrames: 5
     executionFrames: 5
     recoveryFrames: 5
+    baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
+    fullBody: 0
+    moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: 4702d60ce0485b349925441fc754c1ff, type: 2}
   - name: DoNothing
     sprite: {fileID: 0}
-    baseDamage: 0
+    moveType: 0
+    controlType: 1
     aerial: 1
     ground: 1
     knockedMove: 1
-    controlType: 1
-    moveType: 0
-    moveHeight: 1
     preperationFrames: 5
     executionFrames: 500000
     recoveryFrames: 5
+    baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
+    fullBody: 0
+    moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: 00d05009d39b0ae46bcb3e7732bade0d, type: 2}
-  - name: DirectionalDash
+  - name: Attack
     sprite: {fileID: 0}
-    baseDamage: 0
+    moveType: 1
+    controlType: 2
     aerial: 1
     ground: 1
     knockedMove: 0
-    controlType: 2
-    moveType: 0
-    moveHeight: 1
     preperationFrames: 10
     executionFrames: 5
     recoveryFrames: 10
+    baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1, y: 0, z: 0}
+        absoluteSize: {x: 1, y: 1, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 0, z: 0}
+        absoluteSize: {x: 0.9, y: 1.25, z: 0.9}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 0, z: 0}
+        absoluteSize: {x: 1, y: 1, z: 1}
+    fullBody: 0
+    moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: b713214806c2b2246af725622292e0c5, type: 2}

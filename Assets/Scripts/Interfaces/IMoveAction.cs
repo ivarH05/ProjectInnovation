@@ -10,4 +10,8 @@ public abstract class MoveAction : ScriptableObject
     public virtual void Start() { }
     public virtual void Update() { }
     public virtual void End() { }
+
+    public virtual void OnPlayerTriggerStart(PlayerCollisionData data) { }
+    public virtual void OnPlayerTriggerStay(PlayerCollisionData data) { }
+    public virtual void OnPlayerTriggerStop(PlayerCollisionData data) { }
 }

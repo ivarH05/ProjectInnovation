@@ -35,4 +35,23 @@ public class TemplateMoveBehaviour : MoveBehaviour
     public override void OnRecoveryStart() { Debug.Log("recover"); RecoveryAction.Start(); }
     public override void OnRecovery() { Debug.Log("recovering"); RecoveryAction.Update(); }
     public override void OnRecoveryEnd() { Debug.Log("recovered"); RecoveryAction.End(); }
+
+    public override void OnPlayerTriggerStart(PlayerCollisionData data)
+    {
+        PreperationAction.OnPlayerTriggerStart(data);
+        ExecutionAction.OnPlayerTriggerStart(data);
+        RecoveryAction.OnPlayerTriggerStart(data);
+    }
+    public override void OnPlayerTriggerStay(PlayerCollisionData data)
+    {
+        PreperationAction.OnPlayerTriggerStay(data);
+        ExecutionAction.OnPlayerTriggerStay(data);
+        RecoveryAction.OnPlayerTriggerStay(data);
+    }
+    public override void OnPlayerTriggerStop(PlayerCollisionData data)
+    {
+        PreperationAction.OnPlayerTriggerStop(data);
+        ExecutionAction.OnPlayerTriggerStop(data);
+        RecoveryAction.OnPlayerTriggerStop(data);
+    }
 }
