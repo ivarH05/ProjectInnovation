@@ -25,4 +25,4 @@ public class MoveSelectionEvent : PlayerEvent
     public int player;
 }
 public class StartActionEvent : PlayerEvent { public Move move; }
-public class StopActionEvent : PlayerEvent { public Move move; }
+public class StopActionEvent : PlayerEvent { public Move move; public PlayerController player; }

@@ -17,7 +17,11 @@ public class PlayerController : MonoBehaviour
     private float xScale;
 
     private Rigidbody rb;
-    private BoxCollider moveHitBox;
+    private List<BoxCollider> hitboxes = new List<BoxCollider>();
+
+    private Dictionary<BoxCollider, CollisionType> hitboxTypes = new Dictionary<BoxCollider, CollisionType>();
+
+    HitboxDebugger debugger;
 
     Move currentMove;
 
@@ -45,9 +49,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        debugger = GetComponent<HitboxDebugger>();
+        if (debugger == null)
+            debugger = transform.AddComponent<HitboxDebugger>();
         rb = GetComponent<Rigidbody>();
-        moveHitBox = transform.AddComponent<BoxCollider>();
-        moveHitBox.isTrigger = true;
         PlayerEventBus<MoveConfirmedEvent>.OnEvent += OnMoveConfirmed;
         xScale = transform.localScale.x;
     }
@@ -131,12 +136,51 @@ public class PlayerController : MonoBehaviour
             return;
         currentMove = data.move;
         currentMove.moveBehaviour.Initialize();
-        moveHitBox.size = currentMove.hitbox.absoluteSize;
-        Vector3 offset = currentMove.hitbox.relativeOffset;
-        moveHitBox.center = new Vector3(-offset.x, offset.y, offset.z);
+
+        hitboxTypes = new Dictionary<BoxCollider, CollisionType>();
+        HitboxSet set = data.move.hitboxes;
+        int index = 0;
+        debugger.hitboxSet = set;
+        for (int i = 0; i < set.hitboxes.Length; i++)
+            CreateHitboxCollider(set.hitboxes[i], GetHitbox(ref index), 8);
+        for (int i = 0; i < set.hurtboxes.Length; i++)
+            CreateHitboxCollider(set.hurtboxes[i], GetHitbox(ref index), 9);
+        for (int i = 0; i < set.grabboxes.Length; i++)
+            CreateHitboxCollider(set.grabboxes[i], GetHitbox(ref index), 10);
+
+        while(index < hitboxes.Count)
+            hitboxes.RemoveAt(index);
 
         if (PlayerManager.IsEveryoneReady())
             PlayerEventBus<StartActionEvent>.Publish(new StartActionEvent());
+    }
+
+    BoxCollider GetHitbox(ref int index)
+    {
+        int i = index;
+        index++;
+        if (i < hitboxes.Count)
+            return hitboxes[i];
+
+        BoxCollider box = transform.AddComponent<BoxCollider>();
+        hitboxes.Add(box);
+        return box;
+    }
+
+    void CreateHitboxCollider(Hitbox hitbox, BoxCollider collider, int layer)
+    {
+        collider.center = hitbox.relativeOffset;
+        collider.size = hitbox.absoluteSize;
+        collider.includeLayers = 1 << layer;
+        collider.excludeLayers = ~(1 << 9);
+        collider.isTrigger = true;
+
+        if (layer == 8)
+            hitboxTypes.Add(collider, CollisionType.HURTBOX);
+        else if (layer == 9)
+            hitboxTypes.Add(collider, CollisionType.HITBOX);
+        else if (layer == 10)
+            hitboxTypes.Add(collider, CollisionType.GRABBOX);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -144,20 +188,62 @@ public class PlayerController : MonoBehaviour
         if (!other.transform.CompareTag("Player"))
             return;
         PlayerController pc = other.GetComponent<PlayerController>();
-        currentMove.moveBehaviour.OnPlayerTriggerStart(pc);
+
+        BoxCollider[] colliders = GetComponents<BoxCollider>();
+        foreach (var col in colliders)
+        {
+            if (!col.bounds.Intersects(other.bounds))
+                continue;
+            PlayerCollisionData data = new PlayerCollisionData
+            {
+                current = this,
+                other = pc,
+                currentType = hitboxTypes[col],
+                otherType = pc.hitboxTypes[col],
+            };
+            currentMove.moveBehaviour.OnPlayerTriggerStart(data);
+        }
     }
     private void OnTriggerStay(Collider other)
     {
         if (!other.transform.CompareTag("Player"))
             return;
         PlayerController pc = other.GetComponent<PlayerController>();
-        currentMove.moveBehaviour.OnPlayerTriggerStay(pc);
+
+        BoxCollider[] colliders = GetComponents<BoxCollider>();
+        foreach (var col in colliders)
+        {
+            if (!col.bounds.Intersects(other.bounds))
+                continue;
+            PlayerCollisionData data = new PlayerCollisionData
+            {
+                current = this,
+                other = pc,
+                currentType = hitboxTypes[col],
+                otherType = pc.hitboxTypes[col],
+            };
+            currentMove.moveBehaviour.OnPlayerTriggerStay(data);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
         if (!other.transform.CompareTag("Player"))
             return;
         PlayerController pc = other.GetComponent<PlayerController>();
-        currentMove.moveBehaviour.OnPlayerTriggerStop(pc);
+
+        BoxCollider[] colliders = GetComponents<BoxCollider>();
+        foreach (var col in colliders)
+        {
+            if (!col.bounds.Intersects(other.bounds))
+                continue;
+            PlayerCollisionData data = new PlayerCollisionData
+            {
+                current = this,
+                other = pc,
+                currentType = hitboxTypes[col],
+                otherType = pc.hitboxTypes[col],
+            };
+            currentMove.moveBehaviour.OnPlayerTriggerStop(data);
+        }
     }
 }

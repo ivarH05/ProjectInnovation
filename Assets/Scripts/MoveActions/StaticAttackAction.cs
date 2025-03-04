@@ -16,8 +16,8 @@ public class StaticAttackAction : MoveAction
         PlayerController.current.useGravity = true;
     }
 
-    public override void OnPlayerTriggerStart(PlayerController other)
+    public override void OnPlayerTriggerStart(PlayerCollisionData data)
     {
-        Destroy(other.gameObject);
+        Destroy(data.other.gameObject);
     }
 }

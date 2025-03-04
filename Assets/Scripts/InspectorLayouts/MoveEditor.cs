@@ -20,7 +20,7 @@ public class MoveDrawer : PropertyDrawer
         SerializedProperty baseDamageProp = property.FindPropertyRelative("baseDamage");
         SerializedProperty onGetBlockedModifierProp = property.FindPropertyRelative("onGetBlockedModifier");
         SerializedProperty onDealDamageStunProp = property.FindPropertyRelative("onDealDamageStun");
-        SerializedProperty hitboxProp = property.FindPropertyRelative("hitbox");
+        SerializedProperty hitboxProp = property.FindPropertyRelative("hitboxes");
         SerializedProperty fullBodyProp = property.FindPropertyRelative("fullBody");
         SerializedProperty moveHeightProp = property.FindPropertyRelative("moveHeight");
         SerializedProperty moveBehaviourProp = property.FindPropertyRelative("moveBehaviour");
@@ -114,8 +114,9 @@ public class MoveDrawer : PropertyDrawer
             EditorGUI.PropertyField(rect, onDealDamageStunProp);
             y += lineHeight + spacing;
 
-            rect = new Rect(position.x, y, position.width, lineHeight); 
-            EditorGUI.PropertyField(rect, hitboxProp, true); 
+            rect = new Rect(position.x, y, position.width, lineHeight);
+            EditorGUI.PropertyField(position, property, label, true);
+
             y += EditorGUI.GetPropertyHeight(hitboxProp, true) + spacing;
 
         }
@@ -178,7 +179,7 @@ public class MoveDrawer : PropertyDrawer
         {
             // Attack Options: header + 4 fields
             lines += 1 + 4;
-            SerializedProperty hitboxProp = property.FindPropertyRelative("hitbox");
+            SerializedProperty hitboxProp = property.FindPropertyRelative("hitboxes");
             height += EditorGUI.GetPropertyHeight(hitboxProp, true) + spacing;
         }
         if (moveType == MoveType.BLOCK || moveType == MoveType.HYBRID)

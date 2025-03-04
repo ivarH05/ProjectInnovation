@@ -28,9 +28,10 @@ MonoBehaviour:
     baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
-    hitbox:
-      relativeOffset: {x: 0, y: 0, z: 0}
-      absoluteSize: {x: 1, y: 1, z: 1}
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
     fullBody: 0
     moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: b713214806c2b2246af725622292e0c5, type: 2}
@@ -47,9 +48,10 @@ MonoBehaviour:
     baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
-    hitbox:
-      relativeOffset: {x: 0, y: 0, z: 0}
-      absoluteSize: {x: 1, y: 1, z: 1}
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
     fullBody: 0
     moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: 4702d60ce0485b349925441fc754c1ff, type: 2}
@@ -66,9 +68,10 @@ MonoBehaviour:
     baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
-    hitbox:
-      relativeOffset: {x: 0, y: 0, z: 0}
-      absoluteSize: {x: 1, y: 1, z: 1}
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
     fullBody: 0
     moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: 4702d60ce0485b349925441fc754c1ff, type: 2}
@@ -85,9 +88,10 @@ MonoBehaviour:
     baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
-    hitbox:
-      relativeOffset: {x: 0, y: 0, z: 0}
-      absoluteSize: {x: 1, y: 1, z: 1}
+    hitboxes:
+      hitboxes: []
+      hurtboxes: []
+      grabboxes: []
     fullBody: 0
     moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: 00d05009d39b0ae46bcb3e7732bade0d, type: 2}
@@ -104,9 +108,16 @@ MonoBehaviour:
     baseDamage: 0
     onGetBlockedModifier: 50
     onDealDamageStun: 5
-    hitbox:
-      relativeOffset: {x: 1, y: 0, z: 0}
-      absoluteSize: {x: 1, y: 1, z: 1}
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1, y: 0, z: 0}
+        absoluteSize: {x: 1, y: 1, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 0, z: 0}
+        absoluteSize: {x: 0.9, y: 1.25, z: 0.9}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 0, z: 0}
+        absoluteSize: {x: 1, y: 1, z: 1}
     fullBody: 0
     moveHeight: 1
     moveBehaviour: {fileID: 11400000, guid: b713214806c2b2246af725622292e0c5, type: 2}
