@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum ControlType { BIDIRECTIONAL, MONODIRECTIONAL, JOYSTICK }
+public enum ControlType { BIDIRECTIONAL, MONODIRECTIONAL, JOYSTICK, BOTTOMHALFJOYSTICK, TOPHALFJOYSTICK }
 public enum MoveType { MOVEMENT, ATTACK, BLOCK, HYBRID }
 public enum MoveHeight { NONE, LOW, MEDIUM, HIGH }
 
