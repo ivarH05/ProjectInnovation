@@ -21,6 +21,9 @@ public abstract class MoveBehaviour : ScriptableObject
     public virtual void OnRecovery() { }
     public virtual void OnRecoveryEnd() { }
 
+    public virtual void OnPlayerTriggerStart(PlayerController other) { }
+    public virtual void OnPlayerTriggerStay(PlayerController other) { }
+    public virtual void OnPlayerTriggerStop(PlayerController other) { }
 
     public void OnHitPlayer(PlayerController other) { }
 

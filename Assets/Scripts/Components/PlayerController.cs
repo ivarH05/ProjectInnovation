@@ -14,7 +14,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool useGravity = true;
     public Vector3 Velocity { get { return rb.velocity; } set { rb.velocity = value; } }
 
+    private float xScale;
+
     private Rigidbody rb;
+    private BoxCollider moveHitBox;
 
     Move currentMove;
 
@@ -30,10 +33,23 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    private void OnEnable()
+    {
+        PlayerManager.AddPlayer(this);
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.RemovePlayer(this);
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        moveHitBox = transform.AddComponent<BoxCollider>();
+        moveHitBox.isTrigger = true;
         PlayerEventBus<MoveConfirmedEvent>.OnEvent += OnMoveConfirmed;
+        xScale = transform.localScale.x;
     }
 
     private void OnDestroy()
@@ -44,6 +60,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerUpdate()
     {
         current = this;
+
         HandleMove();
         HandlePhysics();
     }
@@ -90,6 +107,17 @@ public class PlayerController : MonoBehaviour
         if (!IsReady)
             return;
         currentMove.Update();
+
+        if (rb.velocity.magnitude > 1)
+            SetDirection(rb.velocity.x);
+    }
+
+    public void SetDirection(float direction)
+    {
+        if (direction < 0)
+            transform.localScale = new Vector3(-xScale, transform.localScale.y, transform.localScale.z);
+        else
+            transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
     }
 
     public void Damage(PlayerController other, float damage)
@@ -103,7 +131,33 @@ public class PlayerController : MonoBehaviour
             return;
         currentMove = data.move;
         currentMove.moveBehaviour.Initialize();
+        moveHitBox.size = currentMove.hitbox.absoluteSize;
+        Vector3 offset = currentMove.hitbox.relativeOffset;
+        moveHitBox.center = new Vector3(-offset.x, offset.y, offset.z);
+
         if (PlayerManager.IsEveryoneReady())
             PlayerEventBus<StartActionEvent>.Publish(new StartActionEvent());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.transform.CompareTag("Player"))
+            return;
+        PlayerController pc = other.GetComponent<PlayerController>();
+        currentMove.moveBehaviour.OnPlayerTriggerStart(pc);
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.transform.CompareTag("Player"))
+            return;
+        PlayerController pc = other.GetComponent<PlayerController>();
+        currentMove.moveBehaviour.OnPlayerTriggerStay(pc);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.transform.CompareTag("Player"))
+            return;
+        PlayerController pc = other.GetComponent<PlayerController>();
+        currentMove.moveBehaviour.OnPlayerTriggerStop(pc);
     }
 }

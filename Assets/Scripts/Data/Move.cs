@@ -51,14 +51,6 @@ public class Move
         result.moveBehaviour = moveBehaviour.GetClone();
         frameCount = 0;
         return result;
-        /*new Move()
-        {
-            preperationFrames = preperationFrames,
-            executionFrames = executionFrames,
-            recoveryFrames = recoveryFrames,
-            frameCount = 0,
-            moveBehaviour = moveBehaviour.GetClone()
-        };*/
     }
 
     public void Update()

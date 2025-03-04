@@ -10,4 +10,8 @@ public abstract class MoveAction : ScriptableObject
     public virtual void Start() { }
     public virtual void Update() { }
     public virtual void End() { }
+
+    public virtual void OnPlayerTriggerStart(PlayerController other) { }
+    public virtual void OnPlayerTriggerStay(PlayerController other) { }
+    public virtual void OnPlayerTriggerStop(PlayerController other) { }
 }

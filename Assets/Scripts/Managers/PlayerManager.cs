@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController[] playerCharacters;
-    private static PlayerController[] players;
+    private static List<PlayerController> players = new List<PlayerController>();
     private static List<int> characterIndexes = new List<int>();
     private static PlayerManager _singleton;
     bool pausedLastFrame = false;
 
-
     private void Start()
     {
         _singleton = this;
-        players = playerCharacters;
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             players[i].playerIndex = i;
             characterIndexes.Add(i);
@@ -27,7 +24,7 @@ public class PlayerManager : MonoBehaviour
         bool isPaused = TimeManager.isPaused;
         if(isPaused !=  pausedLastFrame )
         {
-            for (int i = 0; i < players.Length; i++)
+            for (int i = 0; i < players.Count; i++)
             {
                 players[i].SetPauseState(isPaused);
             }
@@ -37,19 +34,37 @@ public class PlayerManager : MonoBehaviour
         if (isPaused)
             return;
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             players[i].PlayerUpdate();
         }
     }
-    public static int PlayerCount { get { return players.Length; } }
+
+    public static void AddPlayer(PlayerController pc)
+    {
+        pc.playerIndex = players.Count;
+        players.Add(pc);
+        characterIndexes.Add(0);
+    }
+    public static void RemovePlayer(PlayerController pc)
+    {
+        players.RemoveAt(pc.playerIndex);
+        characterIndexes.RemoveAt(pc.playerIndex);
+
+        for (int i = pc.playerIndex; i < players.Count; i++)
+        {
+            players[i].playerIndex--;
+        }
+    }
+
+    public static int PlayerCount { get { return players.Count; } }
 
     public static Vector3 GetPosition(int playerIndex) { return players[playerIndex].transform.position; }
     public static Vector3 GetVelocity(int playerIndex) { return players[playerIndex].Velocity; }
 
     public static bool IsEveryoneReady()
     {
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             if (!players[i].IsReady)
                 return false;
