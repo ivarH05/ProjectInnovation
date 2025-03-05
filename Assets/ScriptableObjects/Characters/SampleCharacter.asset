@@ -105,7 +105,7 @@ MonoBehaviour:
     preperationFrames: 10
     executionFrames: 5
     recoveryFrames: 10
-    baseDamage: 0
+    baseDamage: 35
     onGetBlockedModifier: 50
     onDealDamageStun: 5
     hitboxes:
@@ -120,4 +120,4 @@ MonoBehaviour:
         absoluteSize: {x: 1, y: 1, z: 1}
     fullBody: 0
     moveHeight: 1
-    moveBehaviour: {fileID: 11400000, guid: b713214806c2b2246af725622292e0c5, type: 2}
+    moveBehaviour: {fileID: 11400000, guid: b210c55d56a3f38499e3237e58cf9f0c, type: 2}

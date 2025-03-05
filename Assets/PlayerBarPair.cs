@@ -7,15 +7,30 @@ public class PlayerBarPair : MonoBehaviour
 {
     public Image BurstBar;
     public Image HealthBar;
-    int id;
+    public int id;
     void SetPlayerID(int id)
     {
         this.id = id;
     }
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        PlayerEventBus<PlayerDamagedEvent>.OnEvent += OnPlayerDamaged;
+        PlayerEventBus<StopActionEvent>.OnEvent += OnStopAction;
+    }
+
+    void OnStopAction(StopActionEvent e)
+    {
+        if (e.player.playerIndex != id)
+            return;
+        BurstBar.fillAmount = e.player.Burst / 100;
+    }
+
+    void OnPlayerDamaged(PlayerDamagedEvent e)
+    {
+        if (e.player.playerIndex != id)
+            return;
+        HealthBar.fillAmount = e.player.Health / e.player.BaseHealth;
     }
 }

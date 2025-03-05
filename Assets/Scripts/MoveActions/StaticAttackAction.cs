@@ -9,15 +9,21 @@ public class StaticAttackAction : MoveAction
     public override void Start()
     {
         PlayerController.current.SetMomentum(Vector3.zero);
-        PlayerController.current.useGravity = false;
+        PlayerController.current.isKinematic = false;
     }
     public override void End()
     {
-        PlayerController.current.useGravity = true;
+        PlayerController.current.isKinematic = true;
     }
 
-    public override void OnPlayerTriggerStart(PlayerCollisionData data)
+    bool hit = false;
+    public override void OnPlayerTriggerStay(PlayerCollisionData data)
     {
-        Destroy(data.other.gameObject);
+        if (hit)
+            return;
+        if (data.currentType != CollisionType.HITBOX || data.otherType != CollisionType.HURTBOX)
+            return;
+        data.other.OnHit(data.current, data.current.BaseDamage);
+        hit = true;
     }
 }

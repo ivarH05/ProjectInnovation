@@ -26,3 +26,8 @@ public class MoveSelectionEvent : PlayerEvent
 }
 public class StartActionEvent : PlayerEvent { public Move move; }
 public class StopActionEvent : PlayerEvent { public Move move; public PlayerController player; }
+
+public class PlayerDamagedEvent : PlayerEvent { public PlayerController player; }
+
+public class BindPlayerEvent : PlayerEvent { public PlayerController player; }
+public class UnbindPlayerEvent : PlayerEvent { public PlayerController player; }

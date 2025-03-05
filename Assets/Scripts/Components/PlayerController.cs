@@ -8,16 +8,20 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController current;
     public int playerIndex;
-    public IDamageBehaviour damageBehaviour;
+    [SerializeField] private GameObject mesh;
 
     [HideInInspector] public bool isKinematic = false;
     [HideInInspector] public bool useGravity = true;
+    [HideInInspector] public float BaseHealth { get; private set; } = 100;
+    [HideInInspector] public float Health { get; private set; } = 100;
+    [HideInInspector] public float Burst { get; private set; } = 100;
+    public float BaseDamage { get { return currentMove.baseDamage; } }
     public Vector3 Velocity { get { return rb.velocity; } set { rb.velocity = value; } }
 
     private float xScale;
 
     private Rigidbody rb;
-    private List<BoxCollider> hitboxes = new List<BoxCollider>();
+    private readonly List<BoxCollider> hitboxes = new List<BoxCollider>();
 
     private Dictionary<BoxCollider, CollisionType> hitboxTypes = new Dictionary<BoxCollider, CollisionType>();
 
@@ -40,11 +44,32 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         PlayerManager.AddPlayer(this);
+        
     }
 
     private void OnDisable()
     {
         PlayerManager.RemovePlayer(this);
+    }
+
+    public void Vanish()
+    {
+        Collider[] colliders = GetComponents<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = false;
+        }
+        mesh.SetActive(false);
+    }
+
+    public void Appear()
+    {
+        Collider[] colliders = GetComponents<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
+        }
+        mesh.SetActive(true);
     }
 
     private void Start()
@@ -55,6 +80,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         PlayerEventBus<MoveConfirmedEvent>.OnEvent += OnMoveConfirmed;
         xScale = transform.localScale.x;
+        Time.timeScale = 0.25f;
     }
 
     private void OnDestroy()
@@ -92,6 +118,16 @@ public class PlayerController : MonoBehaviour
         rb.velocity += momentum / rb.mass;
     }
 
+    public void Move(Vector3 offset)
+    {
+        rb.MovePosition(transform.position + offset);
+    }
+
+    public void SetPosition(Vector3 newPos)
+    {
+        rb.MovePosition(newPos);
+    }
+
     public void AddForce(Vector3 force)
     {
         rb.AddForce(force);
@@ -119,15 +155,24 @@ public class PlayerController : MonoBehaviour
 
     public void SetDirection(float direction)
     {
-        if (direction < 0)
+        print("Player " + playerIndex + ": " + direction);
+        if (direction > 0)
             transform.localScale = new Vector3(-xScale, transform.localScale.y, transform.localScale.z);
         else
             transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
     }
 
-    public void Damage(PlayerController other, float damage)
+    public void OnHit(PlayerController other, float damage)
     {
         currentMove.moveBehaviour.OnDamaged(other, damage);
+    }
+
+    public void DealDamage(float damage)
+    {
+        Health -= damage;
+        print("Player " + playerIndex + " took damage: " + damage);
+        print("New health: " + Health);
+        PlayerEventBus<PlayerDamagedEvent>.Publish(new PlayerDamagedEvent() { player = this });
     }
 
     private void OnMoveConfirmed(MoveConfirmedEvent data)
@@ -136,26 +181,31 @@ public class PlayerController : MonoBehaviour
             return;
         currentMove = data.move;
         currentMove.moveBehaviour.Initialize();
+        currentMove.moveBehaviour.player = this;
 
         hitboxTypes = new Dictionary<BoxCollider, CollisionType>();
         HitboxSet set = data.move.hitboxes;
         int index = 0;
         debugger.hitboxSet = set;
         for (int i = 0; i < set.hitboxes.Length; i++)
-            CreateHitboxCollider(set.hitboxes[i], GetHitbox(ref index), 8);
+            CreateHitboxCollider(set.hitboxes[i], GetHitbox(ref index, CollisionType.HITBOX), 8);
         for (int i = 0; i < set.hurtboxes.Length; i++)
-            CreateHitboxCollider(set.hurtboxes[i], GetHitbox(ref index), 9);
+            CreateHitboxCollider(set.hurtboxes[i], GetHitbox(ref index, CollisionType.HURTBOX), 9);
         for (int i = 0; i < set.grabboxes.Length; i++)
-            CreateHitboxCollider(set.grabboxes[i], GetHitbox(ref index), 10);
+            CreateHitboxCollider(set.grabboxes[i], GetHitbox(ref index, CollisionType.GRABBOX), 10);
 
         while(index < hitboxes.Count)
             hitboxes.RemoveAt(index);
+
+        Burst += 5;
+        if(Burst > 100)
+            Burst = 100;
 
         if (PlayerManager.IsEveryoneReady())
             PlayerEventBus<StartActionEvent>.Publish(new StartActionEvent());
     }
 
-    BoxCollider GetHitbox(ref int index)
+    BoxCollider GetHitbox(ref int index, CollisionType type)
     {
         int i = index;
         index++;
@@ -172,7 +222,7 @@ public class PlayerController : MonoBehaviour
         collider.center = hitbox.relativeOffset;
         collider.size = hitbox.absoluteSize;
         collider.includeLayers = 1 << layer;
-        collider.excludeLayers = ~(1 << 9);
+        //collider.excludeLayers = ~(1 << 9);
         collider.isTrigger = true;
 
         if (layer == 8)
@@ -185,6 +235,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("trigger enter: " + other.transform.name);
         if (!other.transform.CompareTag("Player"))
             return;
         PlayerController pc = other.GetComponent<PlayerController>();
@@ -194,18 +245,22 @@ public class PlayerController : MonoBehaviour
         {
             if (!col.bounds.Intersects(other.bounds))
                 continue;
+            CollisionType t1 = hitboxTypes[col];
+            CollisionType t2 = pc.hitboxTypes[(BoxCollider)other];
+            print("Collision between " + t1 + " and " + t2);
             PlayerCollisionData data = new PlayerCollisionData
             {
                 current = this,
                 other = pc,
-                currentType = hitboxTypes[col],
-                otherType = pc.hitboxTypes[col],
+                currentType = t1,
+                otherType = t2,
             };
             currentMove.moveBehaviour.OnPlayerTriggerStart(data);
         }
     }
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log("trigger stay: " + other.transform.name);
         if (!other.transform.CompareTag("Player"))
             return;
         PlayerController pc = other.GetComponent<PlayerController>();
@@ -215,18 +270,22 @@ public class PlayerController : MonoBehaviour
         {
             if (!col.bounds.Intersects(other.bounds))
                 continue;
+            CollisionType t1 = hitboxTypes[col];
+            CollisionType t2 = pc.hitboxTypes[(BoxCollider)other];
+            print("Collision between " + t1 + " and " + t2);
             PlayerCollisionData data = new PlayerCollisionData
             {
                 current = this,
                 other = pc,
-                currentType = hitboxTypes[col],
-                otherType = pc.hitboxTypes[col],
+                currentType = t1,
+                otherType = t2,
             };
             currentMove.moveBehaviour.OnPlayerTriggerStay(data);
         }
     }
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("trigger exit: " + other.transform.name);
         if (!other.transform.CompareTag("Player"))
             return;
         PlayerController pc = other.GetComponent<PlayerController>();
@@ -236,12 +295,15 @@ public class PlayerController : MonoBehaviour
         {
             if (!col.bounds.Intersects(other.bounds))
                 continue;
+            CollisionType t1 = hitboxTypes[col];
+            CollisionType t2 = pc.hitboxTypes[(BoxCollider)other];
+            print("Collision between " + t1 + " and " + t2);
             PlayerCollisionData data = new PlayerCollisionData
             {
                 current = this,
                 other = pc,
-                currentType = hitboxTypes[col],
-                otherType = pc.hitboxTypes[col],
+                currentType = t1,
+                otherType = t2,
             };
             currentMove.moveBehaviour.OnPlayerTriggerStop(data);
         }

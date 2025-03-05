@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class OptionsListController : MonoBehaviour
 {
+    public GameObject prefab;
+
+    private List<GameObject> objects;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,8 @@ public class OptionsListController : MonoBehaviour
 
     void RebuildOptions()
     {
+        for (int i = 0; i < objects.Count; i++)
+            Destroy(objects[i]);
 
     }
 }

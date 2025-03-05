@@ -92,7 +92,7 @@ public class Move
             {
                 moveBehaviour.OnRecoveryEnd();
                 moveBehaviour.state = MoveState.NULL;
-                PlayerEventBus<StopActionEvent>.Publish(new StopActionEvent());
+                PlayerEventBus<StopActionEvent>.Publish(new StopActionEvent() { player = PlayerController.current, move = this });
             }
             else
                 moveBehaviour.OnRecovery();

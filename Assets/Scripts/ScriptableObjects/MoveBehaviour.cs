@@ -29,7 +29,7 @@ public abstract class MoveBehaviour : ScriptableObject
 
     public void OnDamaged(PlayerController other, float damage)
     {
-        player.damageBehaviour.OnDamage(damage);
+        player.DealDamage(damage);
     }
 }
 
