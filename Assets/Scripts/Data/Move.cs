@@ -14,6 +14,7 @@ public class Move
     [Tooltip("The display name of the move")] public string name;
     [Tooltip("The Icon you see when selecting the move")] public Sprite sprite;
     [Tooltip("The type of attack")] public MoveType moveType;
+    [Tooltip("The default value for a move, (1, 0, 0) is forwards")] public Vector3 baseDirection = new Vector3(1, 0, 0);
 
     [Tooltip("The type of controll")] public ControlType controlType;
     [Tooltip("True if the action can be used mid-air")] public bool aerial = false;
