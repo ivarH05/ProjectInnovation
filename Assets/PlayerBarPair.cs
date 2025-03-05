@@ -7,7 +7,7 @@ public class PlayerBarPair : MonoBehaviour
 {
     public Image BurstBar;
     public Image HealthBar;
-    int id;
+    public int id;
     void SetPlayerID(int id)
     {
         this.id = id;
