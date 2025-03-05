@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         PlayerEventBus<MoveConfirmedEvent>.OnEvent += OnMoveConfirmed;
         xScale = transform.localScale.x;
-        Time.timeScale = 0.25f;
     }
 
     private void OnDestroy()
