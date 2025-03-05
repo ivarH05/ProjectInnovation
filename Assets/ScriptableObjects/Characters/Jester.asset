@@ -1,0 +1,753 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba588118ce97f546ae14598a9e537b0, type: 3}
+  m_Name: Jester
+  m_EditorClassIdentifier: 
+  name: Jester
+  baseHealth: 100
+  moves:
+  - name: Move
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 1
+    executionFrames: 4
+    recoveryFrames: 2
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: 35b55b0a37376b74ba4c50f9c7b9500e, type: 2}
+  - name: Dash
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 3
+    executionFrames: 8
+    recoveryFrames: 4
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: c15f2254f5ac8e846ae32c18264d1881, type: 2}
+  - name: Jump
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 4
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 2
+    executionFrames: 5
+    recoveryFrames: 3
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: 424fe8fcf9e00d342b8b88987d11682f, type: 2}
+  - name: Wait
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 1
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 2
+    executionFrames: 1
+    recoveryFrames: 1
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: 00d05009d39b0ae46bcb3e7732bade0d, type: 2}
+  - name: Block High
+    sprite: {fileID: 0}
+    moveType: 2
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 3
+    executionFrames: 5
+    recoveryFrames: 1
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 3
+    moveBehaviour: {fileID: 11400000, guid: 6138ae18d247d5449867fffab9b07ad3, type: 2}
+  - name: Block Low
+    sprite: {fileID: 0}
+    moveType: 2
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 3
+    executionFrames: 5
+    recoveryFrames: 1
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1.3, y: 1, z: 0}
+        absoluteSize: {x: 1.8, y: 1.8, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 1
+    moveBehaviour: {fileID: 11400000, guid: 6138ae18d247d5449867fffab9b07ad3, type: 2}
+  - name: Air Block
+    sprite: {fileID: 0}
+    moveType: 2
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 3
+    executionFrames: 5
+    recoveryFrames: 1
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1.3, y: 1, z: 0}
+        absoluteSize: {x: 1.8, y: 1.8, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 3
+    moveBehaviour: {fileID: 11400000, guid: 6138ae18d247d5449867fffab9b07ad3, type: 2}
+  - name: Air Dash
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 2
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 4
+    executionFrames: 6
+    recoveryFrames: 3
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: c15f2254f5ac8e846ae32c18264d1881, type: 2}
+  - name: Double Jump
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 4
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 2
+    executionFrames: 5
+    recoveryFrames: 3
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: 424fe8fcf9e00d342b8b88987d11682f, type: 2}
+  - name: Air Wait
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 1
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 2
+    executionFrames: 1
+    recoveryFrames: 1
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: 7701d4be27f87434d910ebbbeb356e30, type: 2}
+  - name: Air Grab
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 2
+    executionFrames: 3
+    recoveryFrames: 38
+    baseDamage: 15
+    onGetBlockedModifier: 0
+    onDealDamageStun: 39
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1.3, y: 1, z: 0}
+        absoluteSize: {x: 1.8, y: 1.8, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 1
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: 6e450f43258f88e499a136b485d8a936, type: 2}
+  - name: Grab
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 2
+    executionFrames: 3
+    recoveryFrames: 38
+    baseDamage: 15
+    onGetBlockedModifier: 0
+    onDealDamageStun: 39
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1.3, y: 1, z: 0}
+        absoluteSize: {x: 1.8, y: 1.8, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 1
+    moveHeight: 0
+    moveBehaviour: {fileID: 11400000, guid: 6e450f43258f88e499a136b485d8a936, type: 2}
+  - name: Light Punch
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 4
+    executionFrames: 3
+    recoveryFrames: 9
+    baseDamage: 4
+    onGetBlockedModifier: 2
+    onDealDamageStun: 1
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 0.8, y: 1, z: 0}
+        absoluteSize: {x: 0.5, y: 0.5, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 2
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Heavy Punch
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 9
+    executionFrames: 6
+    recoveryFrames: 15
+    baseDamage: 10
+    onGetBlockedModifier: 9
+    onDealDamageStun: -7
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 1, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 2
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Light Kick
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 8
+    executionFrames: 3
+    recoveryFrames: 8
+    baseDamage: 4
+    onGetBlockedModifier: 3
+    onDealDamageStun: 7
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1, y: 0.5, z: 0}
+        absoluteSize: {x: 1, y: 0.5, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 1
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Heavy Kick
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 14
+    executionFrames: 7
+    recoveryFrames: 18
+    baseDamage: 12
+    onGetBlockedModifier: 15
+    onDealDamageStun: 12
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 1, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 2
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Flamethrower
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 14
+    executionFrames: 9
+    recoveryFrames: 25
+    baseDamage: 12
+    onGetBlockedModifier: 12
+    onDealDamageStun: 9
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1.3, y: 1, z: 0}
+        absoluteSize: {x: 2, y: 0.5, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 2
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Blink
+    sprite: {fileID: 0}
+    moveType: 3
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 14
+    executionFrames: 10
+    recoveryFrames: 8
+    baseDamage: 6
+    onGetBlockedModifier: 9
+    onDealDamageStun: 6
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 0.1, y: 1, z: 0}
+        absoluteSize: {x: 1.2, y: 2, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 2
+    moveBehaviour: {fileID: 11400000, guid: 0ad10680baa45d94f8acf027d9c0c821, type: 2}
+  - name: Hammer Time
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 12
+    executionFrames: 6
+    recoveryFrames: 10
+    baseDamage: 10
+    onGetBlockedModifier: 11
+    onDealDamageStun: 6
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1.2, y: 1.4, z: 0}
+        absoluteSize: {x: 1.4, y: 1.4, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 3
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Ankle Slash
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 12
+    executionFrames: 6
+    recoveryFrames: 12
+    baseDamage: 14
+    onGetBlockedModifier: 18
+    onDealDamageStun: 18
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 1, y: 0.5, z: 0}
+        absoluteSize: {x: 1.3, y: 0.7, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 1
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Smoke Bomb
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 18
+    executionFrames: 4
+    recoveryFrames: 8
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 1
+    moveBehaviour: {fileID: 11400000, guid: 0a350ffe3983ed445a3d22bac5566cef, type: 2}
+  - name: Big Chomp
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 24
+    executionFrames: 10
+    recoveryFrames: 28
+    baseDamage: 20
+    onGetBlockedModifier: 25
+    onDealDamageStun: -2
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 0, y: 0, z: 0}
+        absoluteSize: {x: 0, y: 0, z: 0}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 2
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Upwards Smoke Bomb
+    sprite: {fileID: 0}
+    moveType: 0
+    baseDirection: {x: 0, y: 1, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 18
+    executionFrames: 4
+    recoveryFrames: 8
+    baseDamage: 0
+    onGetBlockedModifier: 0
+    onDealDamageStun: 0
+    hitboxes:
+      hitboxes: []
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 1
+    moveBehaviour: {fileID: 11400000, guid: 0a350ffe3983ed445a3d22bac5566cef, type: 2}
+  - name: Showtime
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 0
+    ground: 1
+    knockedMove: 0
+    preperationFrames: 16
+    executionFrames: 6
+    recoveryFrames: 12
+    baseDamage: 6
+    onGetBlockedModifier: 12
+    onDealDamageStun: 10
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 2, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 1.5, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 2
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Air Punch
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 8
+    executionFrames: 4
+    recoveryFrames: 9
+    baseDamage: 4
+    onGetBlockedModifier: 5
+    onDealDamageStun: 4
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 2, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 1.5, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 3
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Air Punch
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 1, y: 0, z: 0}
+    controlType: 0
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 12
+    executionFrames: 6
+    recoveryFrames: 14
+    baseDamage: 6
+    onGetBlockedModifier: 9
+    onDealDamageStun: 8
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 2, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 1.5, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 3
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
+  - name: Dive Kick
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 0.5, y: -0.5, z: 0}
+    controlType: 3
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 12
+    executionFrames: 8
+    recoveryFrames: 6
+    baseDamage: 6
+    onGetBlockedModifier: 4
+    onDealDamageStun: 5
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 0.8, y: -0.2, z: 0}
+        absoluteSize: {x: 1.4, y: 1.4, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 3
+    moveBehaviour: {fileID: 11400000, guid: 0ad10680baa45d94f8acf027d9c0c821, type: 2}
+  - name: Chomper Flick
+    sprite: {fileID: 0}
+    moveType: 1
+    baseDirection: {x: 0.5, y: -0.5, z: 0}
+    controlType: 3
+    aerial: 1
+    ground: 0
+    knockedMove: 0
+    preperationFrames: 16
+    executionFrames: 8
+    recoveryFrames: 10
+    baseDamage: 12
+    onGetBlockedModifier: 12
+    onDealDamageStun: 10
+    hitboxes:
+      hitboxes:
+      - relativeOffset: {x: 0.8, y: 1, z: 0}
+        absoluteSize: {x: 1.4, y: 1.6, z: 1}
+      hurtboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+      grabboxes:
+      - relativeOffset: {x: 0, y: 1, z: 0}
+        absoluteSize: {x: 1, y: 2, z: 1}
+    fullBody: 0
+    moveHeight: 3
+    moveBehaviour: {fileID: 11400000, guid: 91ee1a06d02a56041a7703b8269fb8bc, type: 2}
