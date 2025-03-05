@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private static List<PlayerController> players = new List<PlayerController>();
-    private static List<int> characterIndexes = new List<int>();
-    private static PlayerManager _singleton;
+    private static readonly List<PlayerController> players = new List<PlayerController>();
+    private static readonly List<int> characterIndexes = new List<int>();
+    private PlayerManager _singleton;
     bool pausedLastFrame = false;
 
     private void Start()

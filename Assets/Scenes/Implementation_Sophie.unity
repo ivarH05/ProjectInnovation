@@ -1061,6 +1061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 0
+  mesh: {fileID: 904613837}
   isKinematic: 0
   useGravity: 1
 --- !u!4 &506641051
@@ -1098,7 +1099,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -3468,6 +3469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 0
+  mesh: {fileID: 1912753193}
   isKinematic: 0
   useGravity: 1
 --- !u!4 &840287861
@@ -3480,7 +3482,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.5, y: 4.44, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1912753197}
@@ -3505,7 +3507,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -5721,8 +5723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5cb9bf9d58566347a44817bac0c7ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BurstBar: {fileID: 0}
-  HealthBar: {fileID: 0}
+  BurstBar: {fileID: 1854609526}
+  HealthBar: {fileID: 643551794}
 --- !u!1 &1378700643
 GameObject:
   m_ObjectHideFlags: 0

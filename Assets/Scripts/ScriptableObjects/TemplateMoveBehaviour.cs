@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TemplateMoveBehaviour", menuName = "Move")]
+[CreateAssetMenu(fileName = "TemplateMoveBehaviour", menuName = "MoveBehaviour")]
 public class TemplateMoveBehaviour : MoveBehaviour
 {
     public MoveAction PreperationAction;
@@ -38,20 +38,47 @@ public class TemplateMoveBehaviour : MoveBehaviour
 
     public override void OnPlayerTriggerStart(PlayerCollisionData data)
     {
-        PreperationAction.OnPlayerTriggerStart(data);
-        ExecutionAction.OnPlayerTriggerStart(data);
-        RecoveryAction.OnPlayerTriggerStart(data);
+        switch (state)
+        {
+            case MoveState.PREPERATION:
+                PreperationAction.OnPlayerTriggerStart(data);
+                break;
+            case MoveState.EXECUTION:
+                ExecutionAction.OnPlayerTriggerStart(data);
+                break;
+            case MoveState.RECOVERY:
+                RecoveryAction.OnPlayerTriggerStart(data);
+                break;
+        }
     }
     public override void OnPlayerTriggerStay(PlayerCollisionData data)
     {
-        PreperationAction.OnPlayerTriggerStay(data);
-        ExecutionAction.OnPlayerTriggerStay(data);
-        RecoveryAction.OnPlayerTriggerStay(data);
+        switch (state)
+        {
+            case MoveState.PREPERATION:
+                PreperationAction.OnPlayerTriggerStay(data);
+                break;
+            case MoveState.EXECUTION:
+                ExecutionAction.OnPlayerTriggerStay(data);
+                break;
+            case MoveState.RECOVERY:
+                RecoveryAction.OnPlayerTriggerStay(data);
+                break;
+        }
     }
     public override void OnPlayerTriggerStop(PlayerCollisionData data)
     {
-        PreperationAction.OnPlayerTriggerStop(data);
-        ExecutionAction.OnPlayerTriggerStop(data);
-        RecoveryAction.OnPlayerTriggerStop(data);
+        switch (state)
+        {
+            case MoveState.PREPERATION:
+                PreperationAction.OnPlayerTriggerStop(data);
+                break;
+            case MoveState.EXECUTION:
+                ExecutionAction.OnPlayerTriggerStop(data);
+                break;
+            case MoveState.RECOVERY:
+                RecoveryAction.OnPlayerTriggerStop(data);
+                break;
+        }
     }
 }
