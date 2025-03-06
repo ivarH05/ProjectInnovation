@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public CharacterContainer container;
-    public static List<Character> Characters = new List<Character>();
+    private static List<Character> Characters = new List<Character>();
 
     public static int currentIndex;
     public static Character Current 
@@ -19,5 +19,10 @@ public class CharacterManager : MonoBehaviour
     {
         Characters = container.Characters;
         Debug.Log(Characters.Count);
+    }
+
+    public static Character GetCharacter(int index)
+    {
+        return Characters[index];
     }
 }

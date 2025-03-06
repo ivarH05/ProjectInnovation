@@ -16,6 +16,7 @@ public class MoveManager : MonoBehaviour
     public static Move GetMove(int index)
     {
         Character character = CharacterManager.Current;
+        print("tried to get move " + index + " from character " + character);
         Move original = character.moves[index];
         Move m = original.GetClone();
         m.moveBehaviour.state = MoveState.UNINITIALIZED;

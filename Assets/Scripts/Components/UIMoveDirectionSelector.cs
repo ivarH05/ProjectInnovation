@@ -15,6 +15,11 @@ public class UIMoveDirectionSelector : MonoBehaviour
         PlayerEventBus<MoveSelectionEvent>.OnEvent += OnMoveSelected;
     }
 
+    private void OnDestroy()
+    {
+        PlayerEventBus<MoveSelectionEvent>.OnEvent -= OnMoveSelected;
+    }
+
     void OnMoveSelected(MoveSelectionEvent data)
     {
         switch (data.move.controlType)
@@ -25,6 +30,11 @@ public class UIMoveDirectionSelector : MonoBehaviour
                 ChangeActive(null); break;
             case ControlType.JOYSTICK:
                 ChangeActive(joystick); break;
+            case ControlType.BOTTOMHALFJOYSTICK:
+                ChangeActive(joystick); break;
+            case ControlType.TOPHALFJOYSTICK:
+                ChangeActive(joystick); break;
+
         }
     }
 

@@ -20,6 +20,12 @@ public class PlayerBarPair : MonoBehaviour
         PlayerEventBus<StopActionEvent>.OnEvent += OnStopAction;
     }
 
+    private void OnDestroy()
+    {
+        PlayerEventBus<PlayerDamagedEvent>.OnEvent -= OnPlayerDamaged;
+        PlayerEventBus<StopActionEvent>.OnEvent -= OnStopAction;
+    }
+
     void OnStopAction(StopActionEvent e)
     {
         if (e.player.playerIndex != id)

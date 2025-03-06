@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour
     {
         pc.playerIndex = players.Count;
         players.Add(pc);
-        characterIndexes.Add(0);
+        characterIndexes.Add(players.Count);
     }
     public static void RemovePlayer(PlayerController pc)
     {
@@ -59,6 +59,8 @@ public class PlayerManager : MonoBehaviour
 
     public static int PlayerCount { get { return players.Count; } }
 
+    public static PlayerController GetPlayer(int index) { return players[index]; }
+    public static Character GetPlayerCharacter(int index) { return CharacterManager.GetCharacter(characterIndexes[index]); }
     public static Vector3 GetPosition(int playerIndex) { return players[playerIndex].transform.position; }
     public static Vector3 GetVelocity(int playerIndex) { return players[playerIndex].Velocity; }
 

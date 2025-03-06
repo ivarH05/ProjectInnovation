@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         PlayerEventBus<MoveConfirmedEvent>.OnEvent += OnMoveConfirmed;
         xScale = transform.localScale.x;
-        Time.timeScale = 0.25f;
     }
 
     private void OnDestroy()
@@ -155,7 +154,6 @@ public class PlayerController : MonoBehaviour
 
     public void SetDirection(float direction)
     {
-        print("Player " + playerIndex + ": " + direction);
         if (direction > 0)
             transform.localScale = new Vector3(-xScale, transform.localScale.y, transform.localScale.z);
         else
@@ -223,7 +221,7 @@ public class PlayerController : MonoBehaviour
         collider.size = hitbox.absoluteSize;
         collider.includeLayers = 1 << layer;
         //collider.excludeLayers = ~(1 << 9);
-        collider.isTrigger = true;
+        collider.isTrigger = layer != 9;
 
         if (layer == 8)
             hitboxTypes.Add(collider, CollisionType.HURTBOX);
@@ -235,6 +233,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(TimeManager.isPaused) return;
+
         Debug.Log("trigger enter: " + other.transform.name);
         if (!other.transform.CompareTag("Player"))
             return;
@@ -260,6 +260,8 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        if (TimeManager.isPaused) return;
+
         Debug.Log("trigger stay: " + other.transform.name);
         if (!other.transform.CompareTag("Player"))
             return;
@@ -285,6 +287,8 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
+        if (TimeManager.isPaused) return;
+
         Debug.Log("trigger exit: " + other.transform.name);
         if (!other.transform.CompareTag("Player"))
             return;
