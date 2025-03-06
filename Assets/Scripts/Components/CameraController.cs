@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
             if(pos.z > max.z)
                 max.z = pos.z;
         }
-        Vector3 centre = Vector3.Lerp(min, max, 0.5f);
+        Vector3 centre = Vector3.Lerp(min, max, 0.5f) + new Vector3(0, 1, 0);
 
         min.y = min.y * 2f;
         max.y = max.y * 2f;

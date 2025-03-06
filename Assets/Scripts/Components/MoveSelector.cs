@@ -15,14 +15,12 @@ public class MoveSelector : MonoBehaviour
     private void Start()
     {
         _singleton = this;
-        olc.RebuildOptions(player);
-        PlayerEventBus<StartActionEvent>.OnEvent += OnActionStart;
         PlayerEventBus<StopActionEvent>.OnEvent += OnActionEnd;
+        UIEventBus<RedrawMoveEvent>.Publish(new RedrawMoveEvent { player = PlayerManager.GetPlayer(player), character = PlayerManager.GetPlayerCharacter(player) });
     }
 
     private void OnDestroy()
     {
-        PlayerEventBus<StartActionEvent>.OnEvent -= OnActionStart;
         PlayerEventBus<StopActionEvent>.OnEvent -= OnActionEnd;
     }
 
@@ -44,7 +42,7 @@ public class MoveSelector : MonoBehaviour
         if (player >= PlayerManager.PlayerCount)
             player = 0;
 
-        olc.RebuildOptions(player);
+        UIEventBus<RedrawMoveEvent>.Publish(new RedrawMoveEvent { player = PlayerManager.GetPlayer(player), character = PlayerManager.GetPlayerCharacter(player) });
     }
 
     public static Vector3 GetDirection()
@@ -61,14 +59,10 @@ public class MoveSelector : MonoBehaviour
         move = index;
     }
 
-    public void OnActionStart(StartActionEvent e)
-    {
-        olc.Clear();
-    }
-
     public void OnActionEnd(StopActionEvent e)
     {
         player = e.player.playerIndex;
-        olc.RebuildOptions(player);
+        SelectMove(0);
+        UIEventBus<RedrawMoveEvent>.Publish(new RedrawMoveEvent { player = e.player, character = PlayerManager.GetPlayerCharacter(e.player.playerIndex) });
     }
 }
