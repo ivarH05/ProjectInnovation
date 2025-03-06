@@ -5,6 +5,8 @@ using UnityEngine;
 public class UIMoveDirectionSelector : MonoBehaviour
 {
     public Transform joystick;
+    public Transform topHalfJoystick;
+    public Transform bottomHalfJoystick;
     public Transform slider;
 
     private Transform active;
@@ -30,10 +32,10 @@ public class UIMoveDirectionSelector : MonoBehaviour
                 ChangeActive(null); break;
             case ControlType.JOYSTICK:
                 ChangeActive(joystick); break;
-            case ControlType.BOTTOMHALFJOYSTICK:
-                ChangeActive(joystick); break;
             case ControlType.TOPHALFJOYSTICK:
-                ChangeActive(joystick); break;
+                ChangeActive(topHalfJoystick); break;
+            case ControlType.BOTTOMHALFJOYSTICK:
+                ChangeActive(bottomHalfJoystick); break;
 
         }
     }

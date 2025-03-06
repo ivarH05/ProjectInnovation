@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
     public float BaseDamage { get { return currentMove.baseDamage; } }
     public Vector3 Velocity { get { return rb.velocity; } set { rb.velocity = value; } }
 
-    private float xScale;
-
     private Rigidbody rb;
     private readonly List<BoxCollider> hitboxes = new List<BoxCollider>();
 
@@ -79,7 +77,6 @@ public class PlayerController : MonoBehaviour
             debugger = transform.AddComponent<HitboxDebugger>();
         rb = GetComponent<Rigidbody>();
         PlayerEventBus<MoveConfirmedEvent>.OnEvent += OnMoveConfirmed;
-        xScale = transform.localScale.x;
     }
 
     private void OnDestroy()
@@ -155,9 +152,9 @@ public class PlayerController : MonoBehaviour
     public void SetDirection(float direction)
     {
         if (direction > 0)
-            transform.localScale = new Vector3(-xScale, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
         else
-            transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
     }
 
     public void OnHit(PlayerController other, float damage)
@@ -224,9 +221,9 @@ public class PlayerController : MonoBehaviour
         collider.isTrigger = layer != 9;
 
         if (layer == 8)
-            hitboxTypes.Add(collider, CollisionType.HURTBOX);
-        else if (layer == 9)
             hitboxTypes.Add(collider, CollisionType.HITBOX);
+        else if (layer == 9)
+            hitboxTypes.Add(collider, CollisionType.HURTBOX);
         else if (layer == 10)
             hitboxTypes.Add(collider, CollisionType.GRABBOX);
     }
@@ -245,6 +242,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!col.bounds.Intersects(other.bounds))
                 continue;
+
             CollisionType t1 = hitboxTypes[col];
             CollisionType t2 = pc.hitboxTypes[(BoxCollider)other];
             print("Collision between " + t1 + " and " + t2);
@@ -311,5 +309,11 @@ public class PlayerController : MonoBehaviour
             };
             currentMove.moveBehaviour.OnPlayerTriggerStop(data);
         }
+    }
+    
+    public bool IsGrounded()
+    {
+        Collider[] colliders = Physics.OverlapBox(transform.position - new Vector3(0, 0.025f, 0), new Vector3(1, 0.02f, 1));
+        return colliders.Length > 0;
     }
 }
