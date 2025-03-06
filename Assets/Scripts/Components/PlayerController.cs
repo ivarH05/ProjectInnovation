@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
         rb.isKinematic = isKinematic;
         rb.useGravity = useGravity;
 
-        transform.rotation = Quaternion.LookRotation(Vector3.back, -Physics.gravity);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, -Physics.gravity);
         if (isKinematic)
             return;
     }
@@ -145,16 +145,16 @@ public class PlayerController : MonoBehaviour
             return;
         currentMove.Update();
 
-        if (rb.velocity.magnitude > 1)
+        if (Mathf.Abs(rb.velocity.x) > 1.5f)
             SetDirection(rb.velocity.x);
     }
 
     public void SetDirection(float direction)
     {
         if (direction > 0)
-            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
-        else
             transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+        else
+            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
     }
 
     public void OnHit(PlayerController other, float damage)
@@ -190,7 +190,10 @@ public class PlayerController : MonoBehaviour
             CreateHitboxCollider(set.grabboxes[i], GetHitbox(ref index, CollisionType.GRABBOX), 10);
 
         while(index < hitboxes.Count)
+        {
+            Destroy(hitboxes[index]);
             hitboxes.RemoveAt(index);
+        }
 
         Burst += 5;
         if(Burst > 100)
@@ -217,7 +220,7 @@ public class PlayerController : MonoBehaviour
         collider.center = hitbox.relativeOffset;
         collider.size = hitbox.absoluteSize;
         collider.includeLayers = 1 << layer;
-        //collider.excludeLayers = ~(1 << 9);
+
         collider.isTrigger = layer != 9;
 
         if (layer == 8)
@@ -313,7 +316,12 @@ public class PlayerController : MonoBehaviour
     
     public bool IsGrounded()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position - new Vector3(0, 0.025f, 0), new Vector3(1, 0.02f, 1));
-        return colliders.Length > 0;
+        Collider[] colliders = Physics.OverlapBox(transform.position - new Vector3(0, 0.025f, 0), new Vector3(0.5f, 0.02f, 0.5f));
+        foreach (var col in colliders)
+        {
+            if (!col.transform.CompareTag("Player"))
+                return true;
+        }
+        return false;
     }
 }
