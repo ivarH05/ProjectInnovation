@@ -30,6 +30,11 @@ public class UIMoveDirectionSelector : MonoBehaviour
                 ChangeActive(null); break;
             case ControlType.JOYSTICK:
                 ChangeActive(joystick); break;
+            case ControlType.BOTTOMHALFJOYSTICK:
+                ChangeActive(joystick); break;
+            case ControlType.TOPHALFJOYSTICK:
+                ChangeActive(joystick); break;
+
         }
     }
 
