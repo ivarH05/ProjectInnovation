@@ -15,6 +15,11 @@ public class UIMoveDirectionSelector : MonoBehaviour
         PlayerEventBus<MoveSelectionEvent>.OnEvent += OnMoveSelected;
     }
 
+    private void OnDestroy()
+    {
+        PlayerEventBus<MoveSelectionEvent>.OnEvent -= OnMoveSelected;
+    }
+
     void OnMoveSelected(MoveSelectionEvent data)
     {
         switch (data.move.controlType)

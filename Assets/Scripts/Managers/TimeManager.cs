@@ -15,6 +15,12 @@ public class TimeManager : MonoBehaviour
         PlayerEventBus<StartActionEvent>.OnEvent += OnStartAction;
     }
 
+    private void OnDestroy()
+    {
+        PlayerEventBus<StopActionEvent>.OnEvent -= OnStopAction;
+        PlayerEventBus<StartActionEvent>.OnEvent -= OnStartAction;
+    }
+
     private void FixedUpdate()
     {
         if(PauseNextFrame)

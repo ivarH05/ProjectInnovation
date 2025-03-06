@@ -16,6 +16,14 @@ public class MoveSelector : MonoBehaviour
     {
         _singleton = this;
         olc.RebuildOptions(player);
+        PlayerEventBus<StartActionEvent>.OnEvent += OnActionStart;
+        PlayerEventBus<StopActionEvent>.OnEvent += OnActionEnd;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerEventBus<StartActionEvent>.OnEvent -= OnActionStart;
+        PlayerEventBus<StopActionEvent>.OnEvent -= OnActionEnd;
     }
 
     public void OnDirectionJoyStickMoved(Vector2 value)
@@ -35,6 +43,7 @@ public class MoveSelector : MonoBehaviour
         player++;
         if (player >= PlayerManager.PlayerCount)
             player = 0;
+
         olc.RebuildOptions(player);
     }
 
@@ -50,5 +59,16 @@ public class MoveSelector : MonoBehaviour
 
         PlayerEventBus<MoveSelectionEvent>.Publish(new MoveSelectionEvent { move = selectedMove, player = player });
         move = index;
+    }
+
+    public void OnActionStart(StartActionEvent e)
+    {
+        olc.Clear();
+    }
+
+    public void OnActionEnd(StopActionEvent e)
+    {
+        player = e.player.playerIndex;
+        olc.RebuildOptions(player);
     }
 }

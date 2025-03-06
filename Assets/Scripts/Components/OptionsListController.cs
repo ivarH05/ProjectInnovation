@@ -14,9 +14,8 @@ public class OptionsListController : MonoBehaviour
     public void RebuildOptions(int playerIndex)
     {
         Character character = PlayerManager.GetPlayerCharacter(playerIndex);
-        for (int i = 0; i < objects.Count; i++)
-            Destroy(objects[i]);
         Move[] moves = character.moves;
+        Clear();
 
         for (int i = 0; i < moves.Length; i++)
         {
@@ -26,5 +25,12 @@ public class OptionsListController : MonoBehaviour
             obj.GetComponent<Button>().onClick.AddListener(() => { selector.SelectMove(value); });
             obj.transform.GetChild(0).GetComponent<TMP_Text>().text = moves[i].name;
         }
+    }
+
+    public void Clear()
+    {
+        for (int i = 0; i < objects.Count; i++)
+            Destroy(objects[i]);
+        objects.Clear();
     }
 }
