@@ -48,4 +48,11 @@ public class UIMoveDirectionSelector : MonoBehaviour
             newActive.gameObject.SetActive(true);
         active = newActive;
     }
+
+    public void SetDirection(Vector2 direction)
+    {
+        if (active == null)
+            return;
+        active.GetComponent<UIJoystick>().SetDirection(direction);
+    }
 }

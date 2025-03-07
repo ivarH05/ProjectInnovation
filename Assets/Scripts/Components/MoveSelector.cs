@@ -6,6 +6,7 @@ public class MoveSelector : MonoBehaviour
 {
     private static MoveSelector _singleton;
     public OptionsListController olc;
+    public UIMoveDirectionSelector moveDirectionSelector;
 
     private Vector2 direction;
     private int move;
@@ -57,6 +58,12 @@ public class MoveSelector : MonoBehaviour
 
         PlayerEventBus<MoveSelectionEvent>.Publish(new MoveSelectionEvent { move = selectedMove, player = player });
         move = index;
+        float playerDir = -PlayerManager.GetPlayer(player).transform.localScale.x;
+        Vector3 direction = selectedMove.baseDirection * playerDir;
+        if (direction.x == 0)
+            return;
+        _singleton.direction = direction;
+        moveDirectionSelector.SetDirection(direction);
     }
 
     public void OnActionEnd(StopActionEvent e)

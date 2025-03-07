@@ -35,4 +35,10 @@ public class UIJoystick : MonoBehaviour
         stick.transform.localPosition = newPos;
         OnDropdownValueChanged?.Invoke(newPos / size);
     }
+
+    public void SetDirection(Vector2 dir)
+    {
+        stick.transform.localPosition = dir.normalized * size;
+        Change();
+    }
 }
