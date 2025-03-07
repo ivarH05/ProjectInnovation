@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CharacterContainer
   m_EditorClassIdentifier: Assembly-CSharp::CharacterContainer
   Characters:
-  - {fileID: 11400000, guid: ba237c35e4ca02b44bc8e12f333ffcef, type: 2}
   - {fileID: 11400000, guid: 7ff72d3d2e26bfb4dbeeedb4c44d9b4d, type: 2}
   - {fileID: 11400000, guid: d5db9b349e375074b84bea5733b33641, type: 2}
+  - {fileID: 11400000, guid: ba237c35e4ca02b44bc8e12f333ffcef, type: 2}
   - {fileID: 11400000, guid: 98b0717000f9bf048a44260b171f1ab2, type: 2}
   - {fileID: 11400000, guid: 0454b7521d251d74ca2026c11137b0ad, type: 2}

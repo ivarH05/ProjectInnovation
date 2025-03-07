@@ -15,6 +15,7 @@ public class Move
     [Tooltip("The Icon you see when selecting the move")] public Sprite sprite;
     [Tooltip("The type of attack")] public MoveType moveType;
     [Tooltip("The default value for a move, (1, 0, 0) is forwards")] public Vector3 baseDirection = new Vector3(1, 0, 0);
+    [Tooltip("The ID of the animation as found in the animator transition")] public int animationID = -1;
 
     [Tooltip("The type of controll")] public ControlType controlType;
     [Tooltip("True if the action can be used mid-air")] public bool aerial = false;
@@ -44,7 +45,7 @@ public class Move
     //also general, place at the bottom though
     [Tooltip("The main behaviour of the move")] public MoveBehaviour moveBehaviour;
 
-    private int frameCount;
+    private float frameCount;
 
     public Move GetClone()
     {
@@ -56,7 +57,7 @@ public class Move
 
     public void Update()
     {
-        frameCount++;
+        frameCount += 1/3.0f;
         MoveState state = moveBehaviour.state;
         if(state == MoveState.UNINITIALIZED)
         {

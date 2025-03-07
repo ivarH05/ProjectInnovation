@@ -6,6 +6,7 @@ using UnityEngine;
 public class Character : ScriptableObject
 {
     public new string name = "SampleName";
+    public GameObject model;
     public int baseHealth = 100;
 
     public Move[] moves;
