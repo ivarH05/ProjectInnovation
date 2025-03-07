@@ -43,8 +43,15 @@ public class PlayerManager : MonoBehaviour
     public static void AddPlayer(PlayerController pc)
     {
         pc.playerIndex = players.Count;
+        int characterIndex = players.Count; //temp
+
         players.Add(pc);
-        characterIndexes.Add(players.Count);
+        characterIndexes.Add(characterIndex);
+
+        Character c = CharacterManager.GetCharacter(characterIndex);
+
+        GameObject mesh = Instantiate(c.model, pc.transform);
+        pc.mesh = mesh;
     }
     public static void RemovePlayer(PlayerController pc)
     {

@@ -18,11 +18,12 @@ public class CharacterManager : MonoBehaviour
     private void Start()
     {
         Characters = container.Characters;
-        Debug.Log(Characters.Count);
     }
 
     public static Character GetCharacter(int index)
     {
+        if (Characters.Count == 0)
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<CharacterManager>().Start();
         return Characters[index];
     }
 }

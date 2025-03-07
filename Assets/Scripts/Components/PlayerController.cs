@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController current;
     public int playerIndex;
-    [SerializeField] private GameObject mesh;
+    [HideInInspector] public GameObject mesh;
+    private Animator anim;
 
     [HideInInspector] public bool isKinematic = false;
     [HideInInspector] public bool useGravity = true;
@@ -42,12 +43,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         PlayerManager.AddPlayer(this);
-        
-    }
-
-    private void OnDisable()
-    {
-        PlayerManager.RemovePlayer(this);
+        anim = mesh.GetComponent<Animator>();
     }
 
     public void Vanish()
@@ -82,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         PlayerEventBus<MoveConfirmedEvent>.OnEvent -= OnMoveConfirmed;
+        PlayerManager.RemovePlayer(this);
     }
 
     public void PlayerUpdate()
@@ -96,12 +93,12 @@ public class PlayerController : MonoBehaviour
     public void SetPauseState(bool state)
     {
         if (state)
-            storedVelocity = rb.velocity;
+            OnPause();
 
         rb.isKinematic = state;
 
-        if(!state)
-            rb.velocity = storedVelocity;
+        if (!state)
+            OnPlay();
     }
 
     public void SetMomentum(Vector3 momentum)
@@ -161,6 +158,16 @@ public class PlayerController : MonoBehaviour
     {
         currentMove.moveBehaviour.OnDamaged(other, damage);
     }
+    public void OnPause()
+    {
+        anim.speed = 0;
+        storedVelocity = rb.velocity;
+    }
+    public void OnPlay()
+    {
+        anim.speed = 1;
+        rb.velocity = storedVelocity;
+    }
 
     public void DealDamage(float damage)
     {
@@ -177,6 +184,9 @@ public class PlayerController : MonoBehaviour
         currentMove = data.move;
         currentMove.moveBehaviour.Initialize();
         currentMove.moveBehaviour.player = this;
+
+        anim.SetInteger("ID", currentMove.animationID);
+        anim.SetTrigger("Change");
 
         hitboxTypes = new Dictionary<BoxCollider, CollisionType>();
         HitboxSet set = data.move.hitboxes;
