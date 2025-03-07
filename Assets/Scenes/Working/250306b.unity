@@ -3470,6 +3470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   olc: {fileID: 850574434}
+  moveDirectionSelector: {fileID: 369221771}
 --- !u!1 &1298307665
 GameObject:
   m_ObjectHideFlags: 0

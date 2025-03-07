@@ -184,6 +184,7 @@ public class PlayerController : MonoBehaviour
         currentMove = data.move;
         currentMove.moveBehaviour.Initialize();
         currentMove.moveBehaviour.player = this;
+        SetDirection(MoveSelector.GetDirection().x);
 
         anim.SetInteger("ID", currentMove.animationID);
         anim.SetTrigger("Change");
