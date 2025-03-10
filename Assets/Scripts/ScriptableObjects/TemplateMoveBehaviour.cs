@@ -81,4 +81,24 @@ public class TemplateMoveBehaviour : MoveBehaviour
                 break;
         }
     }
+
+    public override void OnDamaged(PlayerController other, float damage)
+    {
+        switch (state)
+        {
+            case MoveState.PREPERATION:
+                if (PreperationAction.OverrideDamage(player, other, damage))
+                    return;
+                break;
+            case MoveState.EXECUTION:
+                if (ExecutionAction.OverrideDamage(player, other, damage))
+                    return;
+                break;
+            case MoveState.RECOVERY:
+                if (RecoveryAction.OverrideDamage(player, other, damage))
+                    return;
+                break;
+        }
+        base.OnDamaged(other, damage);
+    }
 }

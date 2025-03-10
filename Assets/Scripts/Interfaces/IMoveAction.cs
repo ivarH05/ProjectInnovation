@@ -14,4 +14,7 @@ public abstract class MoveAction : ScriptableObject
     public virtual void OnPlayerTriggerStart(PlayerCollisionData data) { }
     public virtual void OnPlayerTriggerStay(PlayerCollisionData data) { }
     public virtual void OnPlayerTriggerStop(PlayerCollisionData data) { }
+
+
+    public virtual bool OverrideDamage(PlayerController player, PlayerController other, float damage) { return false; }
 }

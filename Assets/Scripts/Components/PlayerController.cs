@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     HitboxDebugger debugger;
 
-    Move currentMove;
+    public Move currentMove { get; private set; }
 
     public bool IsReady 
     { 
@@ -184,7 +184,10 @@ public class PlayerController : MonoBehaviour
         currentMove = data.move;
         currentMove.moveBehaviour.Initialize();
         currentMove.moveBehaviour.player = this;
-        SetDirection(MoveSelector.GetDirection().x);
+
+        float direction = MoveSelector.GetDirection().x * -transform.localScale.x;
+        if (direction != 0)
+            SetDirection(direction);
 
         anim.SetInteger("ID", currentMove.animationID);
         anim.SetTrigger("Change");
