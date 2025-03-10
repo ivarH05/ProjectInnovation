@@ -169,12 +169,21 @@ public class PlayerController : MonoBehaviour
         rb.velocity = storedVelocity;
     }
 
-    public void DealDamage(float damage)
+    public void DealDamage(PlayerController other, float damage)
     {
         Health -= damage;
         print("Player " + playerIndex + " took damage: " + damage);
         print("New health: " + Health);
         PlayerEventBus<PlayerDamagedEvent>.Publish(new PlayerDamagedEvent() { player = this });
+
+        currentMove = new Move()
+        {
+            hitboxes = new HitboxSet() { hurtboxes = new Hitbox[] { new Hitbox() { absoluteSize = new Vector3(1, 2, 1), relativeOffset = new Vector3(0, 1, 0) } } },
+            moveBehaviour = new TemplateMoveBehaviour() { PreperationAction = new DoNothingMoveAction(), ExecutionAction = new DoNothingMoveAction(), RecoveryAction = new DoNothingMoveAction() },
+            preperationFrames = 1,
+            executionFrames = other.currentMove.onDealDamageStun - 2,
+            recoveryFrames = 1,
+        };
     }
 
     private void OnMoveConfirmed(MoveConfirmedEvent data)
