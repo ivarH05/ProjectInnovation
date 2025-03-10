@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
         currentMove.moveBehaviour.Initialize();
         currentMove.moveBehaviour.player = this;
 
-        float direction = MoveSelector.GetDirection().x * -transform.localScale.x;
+        float direction = MoveSelector.GetDirection().x;
         if (direction != 0)
             SetDirection(direction);
 
