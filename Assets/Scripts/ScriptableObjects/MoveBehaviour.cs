@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,13 @@ public abstract class MoveBehaviour : ScriptableObject
 
     public virtual void OnDamaged(PlayerController other, float damage)
     {
-        player.DealDamage(damage);
+        float direction = (player.transform.position.x - other.transform.position.x) > 0 ? 1 : -1;
+        Vector3 totalDir = new Vector3(direction, 1, 0).normalized;
+        float x = Mathf.Clamp(damage, 0, 4 * Mathf.PI);
+        float multipiler = Mathf.Cos((x / 4.0f) - Mathf.PI) + 1;
+
+        player.SetMomentum(totalDir * multipiler * 120);
+        player.DealDamage(other, damage);
     }
 }
 
