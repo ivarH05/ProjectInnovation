@@ -345,12 +345,12 @@ MonoBehaviour:
     aerial: 0
     ground: 1
     knockedMove: 0
-    preperationFrames: 4
-    executionFrames: 3
-    recoveryFrames: 9
-    baseDamage: 4
-    onGetBlockedModifier: 2
-    onDealDamageStun: 1
+    preperationFrames: 2
+    executionFrames: 5
+    recoveryFrames: 11
+    baseDamage: 6
+    onGetBlockedModifier: 6
+    onDealDamageStun: 4
     hitboxes:
       hitboxes:
       - relativeOffset: {x: 0.8, y: 1, z: 0}
