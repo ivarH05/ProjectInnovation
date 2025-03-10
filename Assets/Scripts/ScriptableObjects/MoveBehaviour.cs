@@ -27,7 +27,7 @@ public abstract class MoveBehaviour : ScriptableObject
 
     public void OnHitPlayer(PlayerController other) { }
 
-    public void OnDamaged(PlayerController other, float damage)
+    public virtual void OnDamaged(PlayerController other, float damage)
     {
         player.DealDamage(damage);
     }

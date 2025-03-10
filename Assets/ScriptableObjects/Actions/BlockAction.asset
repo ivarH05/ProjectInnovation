@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BlockAction
   m_EditorClassIdentifier: 
   useGravity: 1
-  isKinematic: 0
+  isKinematic: 1

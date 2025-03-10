@@ -60,8 +60,6 @@ public class MoveSelector : MonoBehaviour
         move = index;
         float playerDir = -PlayerManager.GetPlayer(player).transform.localScale.x;
         Vector3 direction = selectedMove.baseDirection * playerDir;
-        if (direction.x == 0)
-            return;
         _singleton.direction = direction;
         moveDirectionSelector.SetDirection(direction);
     }
