@@ -59,7 +59,7 @@ public class MoveSelector : MonoBehaviour
         PlayerEventBus<MoveSelectionEvent>.Publish(new MoveSelectionEvent { move = selectedMove, player = player });
         move = index;
         float playerDir = -PlayerManager.GetPlayer(player).transform.localScale.x;
-        Vector3 direction = selectedMove.baseDirection * playerDir;
+        Vector3 direction = new Vector3(selectedMove.baseDirection.x * playerDir, selectedMove.baseDirection.y, 0);
         _singleton.direction = direction;
         moveDirectionSelector.SetDirection(direction);
     }
