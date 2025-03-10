@@ -346,9 +346,9 @@ MonoBehaviour:
     ground: 1
     knockedMove: 0
     preperationFrames: 6
-    executionFrames: 6
-    recoveryFrames: 8
-    baseDamage: 4
+    executionFrames: 3
+    recoveryFrames: 6
+    baseDamage: 6
     onGetBlockedModifier: 0
     onDealDamageStun: 4
     hitboxes:
@@ -373,10 +373,10 @@ MonoBehaviour:
     aerial: 0
     ground: 1
     knockedMove: 0
-    preperationFrames: 17
-    executionFrames: 5
-    recoveryFrames: 20
-    baseDamage: 16
+    preperationFrames: 11
+    executionFrames: 6
+    recoveryFrames: 17
+    baseDamage: 12
     onGetBlockedModifier: -15
     onDealDamageStun: 25
     hitboxes:
